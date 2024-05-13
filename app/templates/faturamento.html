@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+  <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Faturamento</title>
+        <link rel="stylesheet" href="{% static 'app/css/style-general.css' %}">
+    </head>
+
+    <body> 
+
+        <header>
+            <nav><p>Bem vindo!</p></nav>
+        </header>
+        
+        <main>
+            <section class="mini-formulario">
+                <form action="enviar" method="post">
+                    <div class="form-filtro">
+                        <div class="form_pequeno">
+                            <div class="unidade">
+                                <label for="Data_ini">Data inicio:</label>
+                                <input type="date" class="campo" id="data_ini" name="data_ini" required>
+                            </div>
+                            <div class="unidade">
+                                <label for="Data_fim">Data fim:</label>
+                                <input type="date" class="campo" id="data_fim" name="data_fim" required>
+                            </div>
+                            <div class="filter-button">  
+                                <input id="aplicar-filtro" type="button" class="botao" value="Filtrar">    
+                            </div>
+                        </div>
+                    </div>
+                  </form>
+            </section>
+
+            <section class="tabela">  
+                <div class="topo-tabela">
+                    <div>
+                        <h1>Faturamento</h1>
+                    </div>
+                    <div class="table-buttons">  
+                        <input id="gerar-csv" type="button" class="botao" value="Gerar CSV">
+                        <input id="gerar-csv" type="button" class="botao" value="Concluir">
+                        <input id="gerar-csv" type="button" class="botao" value="Cancelar">    
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Selecione</th>
+                            <th>ID</th>
+                            <th>Data</th>
+                            <th>Hora inicio</th>
+                            <th>Hora fim</th>
+                            <th>Status</th>
+                            <th>Cliente</th>
+                            <th>Descrição</th>
+                            <th>Valor (R$)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {% for i in faturamento_j.dados %}
+                        <tr>
+                          <td><input type="radio" name= "check" value="S" value="{{i.cod}}" unique></td>
+                          <td>{{i.id_hist}}</td>
+                          <td>{{i.data_agendada}}</td>
+                          <td>{{i.hora_inicio}}</td>
+                          <td>{{i.hora_fim}}</td>
+                          <td>{{i.status}}</td>
+                          <td>{{i.cliente}}</td>
+                          <td>{{i.servico}}</td>
+                          <td>{{i.valor}}</td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </section>
+        </main>
+        <script>
+            const data = new Date();
+            const ano = data.getFullYear();
+            const mes = data.getMonth() + 1;
+            const dia = data.getDate();
+            const hora = data.getHours();
+            const minuto = data.getMinutes();
+            const segundo = data.getSeconds();
+            const gerarCSVButton = document.getElementById('gerar-csv');
+            const downloadLink = document.getElementById('download-link');
+            // Usando o "+ 1" em month, porque esse método considera janeiro mês zero...
+
+            gerarCSVButton.addEventListener('click', gerarCSV);
+
+            function gerarCSV() {
+                const table = document.querySelector('table');
+                const rows = table.querySelectorAll('tr');
+                const csvData = [];
+
+                // Obter os cabeçalhos da tabela
+                const headers = table.querySelectorAll('th');
+                const headerData = [];
+
+                for (const header of headers) {
+                    const headerValue = header.textContent;
+                    headerData.push(headerValue);
+                }
+
+                // Adicionar o cabeçalho ao array de dados do CSV
+                csvData.push(headerData.join(';'));
+
+                for (const row of rows) {
+                    const cells = row.querySelectorAll('td');
+                    const rowData = [];
+
+                    for (const cell of cells) {
+                        const cellValue = cell.textContent;
+                        rowData.push(cellValue);
+                    }
+                    
+                    if (rowData.length > 1) {
+                        csvData.push(rowData.join(';'));
+                    }
+                    
+                }
+
+                //csvData += ['\ufeff'].concat(csvData);
+
+                const csvBlob = new Blob([csvData.join('\n')], {type: 'text/csv'});
+
+                const dataHoraString = `${ano}${mes}${dia}${hora}${minuto}${segundo}`;
+
+                // Colocando histórico no nome do arquivo.
+                const fileName = dataHoraString + '_DATA.csv';
+
+                // Criar um link para download do Blob
+                const downloadLink = document.createElement('a');
+                downloadLink.href = window.URL.createObjectURL(csvBlob);
+                downloadLink.download = fileName;
+                downloadLink.textContent = 'Download CSV';
+                downloadLink.id = 'download-link';
+
+                // Adicionar o link para download à página
+                document.body.appendChild(downloadLink);
+
+                // Exibir o link para download
+                downloadLink.click();
+
+                // Adicionar o link para download à página
+                document.body.appendChild(downloadLink);
+
+                // Some com o link!
+                window.location.reload();            
+            }
+        </script>
+    </body>
+</html>

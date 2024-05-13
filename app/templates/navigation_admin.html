@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation</title>
+    <link rel="stylesheet" href="{% static 'app/css/style-general.css' %}">
+</head>
+<body>
+    <header>
+        <nav><p>Bem vindo, administrador @BELTRANO!</p></nav>
+    </header>
+
+    <main>
+        <section class="cards">
+            <div class="card">
+                <img src="{% static 'app/img/enterpeuner.png' %}" alt="Imagem 1">
+                <h2>Empreendedores</h2>
+                <p>Cadastro de empreendedor.</p>
+                <div class="btns">
+                    <button type="submit" class="botao">Acessar</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="{% static 'app/img/query.png' %}" alt="Imagem 2">
+                <h2>Querys</h2>
+                <p>Programe suas querys.</p>
+                <div class="btns">
+                    <button type="submit" class="botao">Acessar</button>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

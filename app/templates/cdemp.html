@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Empreendedor</title>
+      <link rel="stylesheet" href="{% static 'app/css/style-general.css' %}">
+  </head>
+
+  <body> 
+
+    <header>
+      <nav><p>Bem vindo!</p></nav>
+    </header>
+    
+    <main>
+      <section class="formulario">  
+        <h1>Novo empreendedor!</h1>  
+        <form action="enviar" method="post">
+          <div class="form-container">
+            <div class="form-labels">
+              <label for="nome">Nome:</label>
+              <label for="CNPJ">CNPJ:</label>
+              <label for="email">Email:</label>
+              <label for="telefone">Telefone:</label>
+              <label for="data_nascimento">Nascimento:</label>
+            </div>
+            <div class="form-fields">
+              <input type="text" class="campo" id="nome" name="nome" required>
+              <input type="text" class="campo" id="CNPJ" name="CNPJ" required>
+              <input type="email" class="campo" id="email" name="email" required>
+              <input type="tel" class="campo" id="tel" name="telefone" required>
+              <input type="date" class="campo" id="data_nascimento" name="data_nascimento" required>
+            </div>
+          </div>
+        </form>
+            
+        <div class="form-buttons">
+          <input type="submit" class="botao" value="Enviar">
+          <input type="submit" class="botao" value="Limpar">
+        </div>
+      </section>
+
+      <section class="tabela">  
+        <div class="topo-tabela">
+          <div>
+            <h1>Empreendedores</h1>
+          </div>
+          <div class="table-buttons">
+            <input type="submit" class="botao" value="Editar">   
+            <input type="submit" class="botao" value="Deletar">      
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Selecionar</th>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>CNPJ</th>
+              <th>Email</th>
+              <th>Telefone</th>
+              <th>Nascimento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="radio" name= "check" value="S" unique></td>
+              <td>00000001</td>
+              <td>Daniele Bela</td>
+              <td>40.317.748/0001-37</td>
+              <td>daniele.care@gmail.com</td>
+              <td>19 98431-XXXX</td>
+              <td>12/01/1990</td>
+            </tr>
+            
+            <tr>
+              <td><input type="radio" name= "check" value="S" unique></td>
+              <td>00000002</td>
+              <td>Osmar Petruchio</td>
+              <td>32.123.321/0001-12</td>
+              <td>osmarcontato@bol.com</td>
+              <td>19 98531-YYYY</td>
+              <td>12/01/1989</td>
+            </tr>
+
+            <tr>
+              <td><input type="radio" name= "check" value="S" unique></td>
+              <td>00000003</td>
+              <td>Dantas Melo</td>
+              <td>32.525.543/0001-55</td>
+              <td>adv_melomeloto@outlook.com</td>
+              <td>19 98331-0003</td>
+              <td>15/01/1970</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </body>
+</html>

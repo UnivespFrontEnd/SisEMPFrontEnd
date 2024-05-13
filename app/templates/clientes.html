@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes</title>
+    <link rel="stylesheet" href="{% static 'app/css/style-general.css' %}">
+    
+    <script>
+
+      function limparCampos() {
+        
+        // Atribuindo uma variável para cada elemento
+        const nomeInput = document.getElementById('nome');
+        const emailInput = document.getElementById('email');
+        const telefoneInput = document.getElementById('tel');
+        const dataNascimentoInput = document.getElementById('data_nascimento');
+
+        // Limpando o valor de cada elemento
+        nomeInput.value = '';
+        emailInput.value = '';
+        telefoneInput.value = '';
+        dataNascimentoInput.value = '';
+
+        window.location.reload();
+      }
+    
+    </script>
+  </head>
+
+  <body>
+    
+    <header>
+      <nav><p>Bem vindo!</p></nav>
+    </header>
+
+    <main>
+      <section class="formulario">  
+        <h1>Cadastro de Cliente</h1>  
+        <form id="form" action="{% url 'clientes' %}" method="POST"> {% csrf_token %}
+          <div class="form-container">
+            <div class="form-labels">
+              <label for="nome">Nome:</label>
+              <label for="email">Email:</label>
+              <label for="telefone">Telefone:</label>
+              <label for="data_nascimento">Nascimento:</label>
+            </div>
+            <div class="form-fields">
+              <input type="text" class="campo" id="nome" name="nome" value="" required>
+              <input type="email" class="campo" id="email" name="email" value="" required>
+              <input type="tel" class="campo" id="tel" name="telefone" value="" required>
+              <input type="date" class="campo" id="data_nascimento" name="data_nascimento" value="" required>
+            </div>
+          </div>
+          <div class="form-buttons">
+            <input type="submit" class="botao" name="btn" value="Enviar">
+            <input type="button" class="botao" name="Limpar" onclick="limparCampos()" value="Limpar">
+          </div>
+        </form>
+      </section>
+            
+      </section>
+      <section class="tabela">
+        <div class="topo-tabela">
+          <div>
+            <h1>Seus clientes</h1>
+          </div>
+          <div class="table-buttons">
+            <input type="submit" class="botao" value="Editar">   
+            <input type="submit" class="botao" value="Deletar">      
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Selecionar</th>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Data de Nascimento</th>
+              <th>Data cadastro</th>
+              <th>Telefone</th>
+            </tr>
+          </thead>
+      
+          <tbody>
+            {% for i in table_j.dados %}
+            <tr>
+              <td><input id="radio" type="radio" name="check" value="{{i.cod}}" unique></td>
+              <td>{{i.cod}}</td>
+              <td>{{i.nome}}</td>
+              <td>{{i.email}}</td>
+              <td>{{i.nascimento}}</td>
+              <td>{{i.cadastro}}</td>
+              <td>{{i.telefone}}</td>
+            </tr>
+            {% endfor %}
+            
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </body>
+</html>

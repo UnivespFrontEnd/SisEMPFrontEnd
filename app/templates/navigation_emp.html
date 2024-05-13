@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation</title>
+    <link rel="stylesheet" href="{% static 'app/css/style-general.css' %}">
+</head>
+<body>
+    <header>
+        <nav><p>Bem vindo!</p></nav>
+    </header>
+
+    <main>
+        <section class="cards">
+            <div class="card">
+                <img src="{% static 'app/img/client.png' %}" alt="Imagem 1">
+                <h2>Clientes</h2>
+                <p>Cadastre seus clientes.</p>
+                <div class="btns">
+                    <button type="submit" class="botao" onclick="location.href='{% url 'clientes' %}'">Acessar</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="{% static 'app/img/services.png' %}" alt="Imagem 2">
+                <h2>Serviços</h2>
+                <p>Insira seus serviços no catálogo.</p>
+                <div class="btns">
+                    <button type="submit" class="botao" onclick="location.href='{% url 'catserv' %}'">Acessar</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="{% static 'app/img/calendario.png' %}" alt="Imagem 3">
+                <h2>Agendamentos</h2>
+                <p>Acompanhe sua agenda.</p>
+                <div class="btns">
+                    <button type="submit" class="botao" onclick="location.href='{% url 'agenda' %}'">Acessar</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="{% static 'app/img/faturamento.png' %}" alt="Imagem 4">
+                <h2>Faturamento</h2>
+                <p>Veja seus resultados.</p>
+                <div class="btns">
+                    <button type="submit" class="botao" onclick="location.href='{% url 'faturamento' %}'">Acessar</button>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

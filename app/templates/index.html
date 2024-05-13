@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'app/css/style-index.css' %}">
+    <script>
+
+        document.getElementById('olho').addEventListener('mousedown', function() {
+            document.getElementById('pass').type = 'text';
+        });
+      
+        document.getElementById('olho').addEventListener('mouseup', function() {
+            document.getElementById('pass').type = 'password';
+        });
+      
+        // Para que o password não fique exposto apos mover a imagem.
+        document.getElementById('olho').addEventListener('mousemove', function() {
+            document.getElementById('pass').type = 'password';
+        });
+
+        function validarEmail(email) {
+        // Expressão regular para email
+        const regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        // Retorna true se o email for válido
+        return regexEmail.test(email);
+        }
+      
+        document.querySelector('#email').addEventListener('blur', function() {
+        // Obter o valor do campo de email
+        const email = this.value;
+
+        // Validar o email
+        const emailValido = validarEmail(email);
+
+        // Selecionar o span de erro
+        const erroEmail = document.querySelector('#erro-email');
+
+        // Se o email for inválido, exibir mensagem de erro
+        if (!emailValido) {
+            erroEmail.textContent = 'Email inválido';
+            this.classList.add('invalido');
+        } else {
+            // Se o email for válido, remover mensagem de erro
+            erroEmail.textContent = '';
+            this.classList.remove('invalido');
+        }
+        });
+        
+    </script>
+</head>
+<body style="background-image: url('{% static 'app/img/office.png' %}');">
+    <div class="container">
+        <div class="quadro">
+            <div class="boas-vindas">
+                <h1> - SisEmp - </h1>
+                <h2>Bem-vindo!</h2>
+                <p>Faça login para acessar sua conta.</p>
+                <p>Acompanhe seu negócio conosco.</p>
+            </div>
+            <div class="formulario">
+                <form action="{% url 'login' %}" method="POST"> {% csrf_token %}
+                    <div class="titulo">Login</div>
+                    <div class="input-container">
+                        <input type="email" class="input" placeholder="E-mail" name="email" required>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" class="input" placeholder="Senha" name="senha" required>
+                    </div>
+                    <div class="input-button">
+                        <button type="submit" class="botao">Entrar</button>
+                    </div>
+                    <div class="input-forget">
+                        <a href="">Esqueci minha senha...</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p> -- Todos os direitos reservados a <b>DC Studio&copy;</b>. Plataforma FreePic, no link: 
+        <a href="https://br.freepik.com/fotos-gratis/ninguem-no-escritorio-comercial-com-computador-e-instrumentos-na-mesa-espaco-vazio-de-inicializacao-usado-para-trabalhar-no-crescimento-da-empresa-com-monitor-e-equipamentos-sem-pessoas-no-local-de-trabalho-com-decoracoes_21892703.htm">Imagem de DC Studio no Freepik</a></p>
+    </footer>
+</body>
+</html>

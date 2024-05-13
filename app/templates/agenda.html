@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda</title>
+    <link rel="stylesheet" href="{% static 'app/css/style-general.css' %}">
+  </head>
+
+    <body>
+    
+        <header>
+        <nav><p>Bem vindo!</p></nav>
+        </header>
+
+        <main>
+            <h1>Agendamento</h1>
+            <section class="formulario">            
+                <article>
+                    <h1>Registrar horário</h1>
+                    <form action="enviar" method="post">
+                        <div class="form-container">
+                            <div class="form-labels">
+                            <label for="cliente">Cliente:</label>
+                            <label for="servico">Serviço:</label>
+                            <label for="data">Data:</label>
+                            <label for="time_Ini">Inicio:</label>
+                            <label for="time_Fim">Fim:</label>
+                            </div>
+                            <div class="form-fields">
+                                <select name="clientes" id="cliente">
+                                    <option value="">Selecione...</option>
+                                    <option value="id1">Rosana</option>
+                                    <option value="id2">Juliana</option>
+                                    <option value="id3">Paula</option>
+                                    <option value="id4">Clara</option>
+                                </select>
+                                <select name="servicos" id="servico">
+                                    <option value="">Selecione...</option>
+                                    <option value="id1">Massagem</option>
+                                    <option value="id2">Depilação</option>
+                                </select>
+                                <input type="date" id="data_compromisso" name="data_compromisso" required>
+                                <input type="time" id="inicio" name="inicio" min="08:00" max="18:00" required>
+                                <input type="time" id="fim" name="fim" min="08:00" max="18:00" required>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="form-buttons">
+                        <input type="submit" class="botao" value="Enviar">
+                        <input type="submit" class="botao" value="Limpar">
+                    </div>
+                </article>
+            </section>
+            <section class="table">
+                <div class="topo-tabela">
+                    <div>
+                      <h1>Seus Agendamentos</h1>
+                    </div>
+                    <div class="table-buttons">
+                      <input type="submit" class="botao" value="Editar">   
+                      <input type="submit" class="botao" value="Deletar">      
+                    </div>
+                  </div>
+                  <table>
+                    
+                    <thead>
+                        <tr>
+                            <th>Selecionar</th>
+                            <th>ID</th>
+                            <th>Serviço</th>
+                            <th>Dia</th>
+                            <th>Hora inicio</th>
+                            <th>Hora fim</th>
+                        </tr>
+                    </thead>
+                
+                    <tbody>
+                      
+                        {% for i in agenda_j.dados %}
+                        <tr>
+                          <td><input type="radio" name= "check" value="S" value="{{i.cod}}" unique></td>
+                          <td>{{i.id}}</td>
+                          <td>{{i.cliente_nome}}</td>
+                          <td>{{i.data}}</td>
+                          <td>{{i.hora_ini}}</td>
+                          <td>{{i.hora_fim}}</td>
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>      
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
